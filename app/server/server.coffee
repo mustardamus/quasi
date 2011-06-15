@@ -1,8 +1,4 @@
 quasi = require global.quasi
 
-quasi.bind 'hello', (data) ->
-  #data.str
-  quasi.client.trigger 'bye', data
-
-quasi.bind 'dunno', ->
-  console.log 'the dunno bind'
+quasi.bind 'new_message', (data) ->
+  quasi.client.trigger 'update_chat', { username: data.username, message: data.message }
