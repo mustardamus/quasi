@@ -24,7 +24,10 @@ Make sure jsMerge and cssMerge are requested in index.html
 
 ## Start app
     coffee quasi.coffee
-    
+
+
+## Methods
+    quasi.ready -> # execute the callback if socket and DOM is ready
 
 ## Tasks
 

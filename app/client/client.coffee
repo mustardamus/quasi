@@ -1,5 +1,4 @@
-#
-jQuery ->
+quasi.ready ->
   send = $ '#send'  
   username = $ '#username'
   messages = $ '#messages'
@@ -9,9 +8,5 @@ jQuery ->
   
   send.keyup (event) ->
     if event.keyCode is 13
-      quasi.trigger 'new_message', { username: username.val(), message: send.val() }, true
+      quasi.trigger 'new_message', { username: username.val(), message: send.val() }
       send.val ''
-  
-  #setTimeout ->
-  quasi.trigger 'new_message', { username: 'bot', message: 'sent in private' }, true
-  #, 1000
