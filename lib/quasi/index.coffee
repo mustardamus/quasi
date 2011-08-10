@@ -4,10 +4,10 @@ socket    = io.listen global.httpServer
 funcs     = []
 clients   = []
 
-executeFunc = (name, data) ->
+executeFunc = (name, data) =>
   for func in funcs
     if func.name is name
-      func.func.call this, data
+      func.func.call @, data
       break
 
 socket.on 'connection', (client) ->

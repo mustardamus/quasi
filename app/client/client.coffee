@@ -3,10 +3,10 @@ quasi.ready ->
   username = $ '#username'
   messages = $ '#messages'
   
-  quasi.bind 'update_chat', (data) ->
+  @bind 'update_chat', (data) ->
     messages.append "<li><span>#{data.username}:</span> #{data.message}</li>"
   
-  send.keyup (event) ->
+  send.keyup (event) =>
     if event.keyCode is 13
-      quasi.trigger 'new_message', { username: username.val(), message: send.val() }
+      @trigger 'new_message', { username: username.val(), message: send.val() }
       send.val ''
