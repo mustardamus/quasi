@@ -16,5 +16,4 @@ exports.execute = (args) ->
       if req['index'] then req.index.call this, args
       else console.log "Unknown task in module '#{module}' - #{task}"
   catch error
-    console.log error
     console.log "Unknown module '#{module}' - ./tasks/#{module}.coffee missing"

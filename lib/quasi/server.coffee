@@ -17,10 +17,13 @@ exports.listen = (port) ->
   
     try
       if path is config.jsMerge
-        path = "#{config.root}/app/client/"
-      
+        path    = "#{config.root}/app/client/"
+        content = fs.readFileSync "#{config.root}/lib/quasi/client.coffee", 'utf-8'
+        
         for file in fs.readdirSync(path)
-          content += coffee.compile fs.readFileSync(path+file, 'utf-8')
+          content += "\n" + fs.readFileSync(path+file, 'utf-8')
+        
+        content = coffee.compile content
       else if path is config.cssMerge
         path = "#{config.root}/app/style/"
       
@@ -35,7 +38,7 @@ exports.listen = (port) ->
       response.end content
     catch error
       response.writeHead 404, { 'Content-Type': type }
-      response.end 'Not Found'
+      response.end "Not Found #{error}"
 
   server.listen port
   console.log "Started Quasi on port #{port}..."

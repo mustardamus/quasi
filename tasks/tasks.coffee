@@ -1,4 +1,4 @@
-fs   = require 'fs'
+fs = require 'fs'
 
 exports.index = ->
   for file in fs.readdirSync(__dirname)

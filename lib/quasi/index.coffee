@@ -1,7 +1,8 @@
-config = require "#{__dirname}/../../config"
-io     = require "#{config.root}/lib/socket.io"
-socket = io.listen global.httpServer
-funcs  = []
+config  = require "#{__dirname}/../../config"
+io      = require "#{config.root}/lib/socket.io"
+socket  = io.listen global.httpServer
+funcs   = []
+clients = []
 
 executeFunc = (name, data) ->
   for func in funcs
@@ -10,6 +11,12 @@ executeFunc = (name, data) ->
       break
 
 socket.on 'connection', (client) ->
+  clients.push client
+  
+  client.send 
+    name: 'quasi.hello'
+    data: { sessionId: client.sessionId }
+
   client.on 'message', (message) ->
     executeFunc message.name, message.data if message.name
 
