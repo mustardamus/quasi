@@ -1,12 +1,10 @@
 quasi.ready ->
-  send = $ '#send'  
-  username = $ '#username'
-  messages = $ '#messages'
+  @trigger 'new_client' #tell the server i am here
   
-  @bind 'update_chat', (data) ->
+  @bind 'new_client_count', (clientCount) ->
+    console.log clientCount
+    
+  ###
+  @bind 'new_client', (data) ->
     messages.append "<li><span>#{data.username}:</span> #{data.message}</li>"
-  
-  send.keyup (event) =>
-    if event.keyCode is 13
-      @trigger 'new_message', { username: username.val(), message: send.val() }
-      send.val ''
+  ###

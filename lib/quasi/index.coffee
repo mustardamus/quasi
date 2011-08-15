@@ -1,8 +1,9 @@
-config    = require "#{__dirname}/../../config"
-io        = require "#{config.root}/lib/socket.io"
-socket    = io.listen global.httpServer
-funcs     = []
-clients   = []
+config     = require "#{__dirname}/../../config"
+io         = require "#{config.root}/lib/socket.io"
+socket     = io.listen global.httpServer
+funcs      = []
+clients    = []
+retClients = -> clients
 
 executeFunc = (name, data) =>
   for func in funcs
@@ -20,7 +21,7 @@ socket.on 'connection', (client) ->
   client.on 'message', (message) ->
     executeFunc message.name, message.data if message.name
 
-retClients      = -> clients
+
 exports.clients = retClients()
 
 exports.bind = (name, func) ->

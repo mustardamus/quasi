@@ -24,11 +24,14 @@ class Quasi
   
   trigger: (name, data) ->
     @socket.send
-      name: name
-      data: data
+      name     : name
+      data     : data
       sessionId: @sessionId
   
   bind: (name, func) ->
-    @binds.push { name: name, func: func }
+    @binds.push
+      name: name
+      func: func
+    
     
 quasi = new Quasi
