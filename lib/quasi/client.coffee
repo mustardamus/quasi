@@ -3,9 +3,8 @@ class Quasi
     @sessionId     = null
     @binds         = []
     @readyCallback = ->
-    @socket        = new io.Socket 'localhost'
-    
-    @socket.connect()
+    @socket        = io.connect 'localhost'
+
     @handleSocketMessages()
   
   handleSocketMessages: ->
@@ -23,7 +22,7 @@ class Quasi
     @readyCallback = func
   
   trigger: (name, data) ->
-    @socket.send
+    @socket.emit 'message'
       name     : name
       data     : data
       sessionId: @sessionId

@@ -4,6 +4,7 @@ clientCount = 0
 
 quasi.bind 'new_client', ->
   clientCount++
+  console.log '###################### new client count', clientCount
   @trigger 'new_client_count', clientCount
 
 ###

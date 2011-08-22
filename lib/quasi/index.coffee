@@ -1,6 +1,6 @@
 config     = require "#{__dirname}/../../config"
-io         = require 'socket.io'
-socket     = io.listen global.httpServer
+socket     = require 'socket.io'
+io         = socket.listen global.httpServer
 funcs      = []
 clients    = []
 retClients = -> clients
@@ -11,12 +11,12 @@ executeFunc = (name, data) =>
       func.func.call @, data
       break
 
-socket.on 'connection', (client) ->
+io.sockets.on 'connection', (client) ->
   clients.push client
   
-  client.send 
+  client.emit 'message'
     name: 'quasi.hello'
-    data: { sessionId: client.sessionId }
+    data: { sessionId: client.id }
 
   client.on 'message', (message) ->
     executeFunc message.name, message.data if message.name
@@ -27,5 +27,7 @@ exports.clients = retClients()
 exports.bind = (name, func) ->
   funcs.push { name: name, func: func }
 
-exports.trigger = (name, data) ->
-  socket.broadcast { name: name, data: data }
+exports.trigger = (name, data, sessionId) ->
+  io.sockets.emit 'message'
+    name: name
+    data: data
