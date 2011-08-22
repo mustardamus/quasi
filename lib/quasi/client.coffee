@@ -3,26 +3,30 @@ class Quasi
     @sessionId     = null
     @binds         = []
     @readyCallback = ->
-    @socket        = io.connect 'localhost'
+    @quasiSock     = io.connect 'http://localhost/quasi'
+    @messagesSock  = io.connect 'http://localhost/messages'
 
-    @handleSocketMessages()
+    @handleQuasiSock()
+    @handleMessagesSock()
   
-  handleSocketMessages: ->
-    @socket.on 'message', (message) =>
-      if message.name is 'quasi.hello'
-        @sessionId = message.data.sessionId
-        jQuery => @readyCallback()
-      else
-        for bind in @binds
-          if bind.name is message.name
-            bind.func.call @, message.data
-            break
+  handleQuasiSock: ->
+    @quasiSock.on 'hello', (sessionId) =>
+      @sessionId = sessionId
+      jQuery => @readyCallback()
+
+  handleMessagesSock: ->
+    @messagesSock.on 'message', (message) =>
+      console.log 'message', message
+      for bind in @binds
+        if bind.name is message.name
+          bind.func.call @, message.data
+          break
   
   ready: (func) ->
     @readyCallback = func
   
   trigger: (name, data) ->
-    @socket.emit 'message'
+    @messagesSock.emit 'message'
       name     : name
       data     : data
       sessionId: @sessionId

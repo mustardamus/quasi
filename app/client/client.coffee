@@ -1,4 +1,6 @@
 quasi.ready ->
+  console.log 'i am ready', @sessionId
+  
   @trigger 'new_client' #tell the server i am here
   
   @bind 'new_client_count', (clientCount) ->

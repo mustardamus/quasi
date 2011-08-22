@@ -11,13 +11,11 @@ executeFunc = (name, data) =>
       func.func.call @, data
       break
 
-io.sockets.on 'connection', (client) ->
+io.of('/quasi').on 'connection', (client) ->
   clients.push client
-  
-  client.emit 'message'
-    name: 'quasi.hello'
-    data: { sessionId: client.id }
+  client.emit 'hello', client.id 
 
+io.of('/messages').on 'connection', (client) ->
   client.on 'message', (message) ->
     executeFunc message.name, message.data if message.name
 
@@ -28,6 +26,6 @@ exports.bind = (name, func) ->
   funcs.push { name: name, func: func }
 
 exports.trigger = (name, data, sessionId) ->
-  io.sockets.emit 'message'
+  io.of('/messages').emit 'message'
     name: name
     data: data
