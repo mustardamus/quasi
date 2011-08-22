@@ -1,5 +1,5 @@
 config     = require "#{__dirname}/../../config"
-io         = require "#{config.root}/lib/socket.io"
+io         = require 'socket.io'
 socket     = io.listen global.httpServer
 funcs      = []
 clients    = []

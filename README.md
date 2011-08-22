@@ -1,10 +1,19 @@
 # Quasi - Virtually a Node.js Framework
 
-Intro here.
+Intro.
 
 
+TODO:
+ - update socket.io client
+ - update socket.io related code
+ - dont broadcast to clients, but emit to client
+ - quasi callbacks: connect (is ready), message, disconnect
+ - socket callbacks (quasi.xxx) [font- and backend?]: some client connected, some client leave
+ - private messages
+ - documentation
 
-## Files
+
+## Structure
 
     app/
       client/

@@ -1,4 +1,4 @@
-require './lib/coffee-script/lib'
+require 'coffee-script'
 
 args   = process.argv.splice 2
 config = require './config'

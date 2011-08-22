@@ -2,8 +2,8 @@ http   = require 'http'
 url    = require 'url'
 fs     = require 'fs'
 config = require "#{__dirname}/../../config"
-coffee = require "#{config.root}/lib/coffee-script/lib"
-stylus = require "#{config.root}/lib/stylus"
+coffee = require 'coffee-script'
+stylus = require 'stylus'
 
 exports.listen = (port) ->
   server = http.createServer (request, response) ->
